@@ -35,7 +35,7 @@ public class DataManager {
 		contatos.add(contato);
 		fp.writeContato(contato);
 	}
-
+	//TODO: Dar clear no TXT e gravar novamente
 	public boolean removerAPE(String numPedido){
 		APE apeParaRemover = null;
 		boolean removido = false;
@@ -47,7 +47,7 @@ public class DataManager {
 		apes.remove(apeParaRemover);
 		return removido;
 	}
-
+	//TODO: Dar clear no TXT e gravar novamente 
 	public boolean removerRelatorio(int id){
 		Relatorio relatorioParaRemover = null;
 		boolean removido = false;
@@ -59,7 +59,7 @@ public class DataManager {
 		relatorios.remove(relatorioParaRemover);
 		return removido;
 	}
-
+	//TODO: Dar clear no TXT e gravar novamente
 	public boolean removerContato(int id){
 		Contato contatoParaRemover = null;
 		boolean removido = false;
@@ -114,43 +114,6 @@ public class DataManager {
 		}
 	
 		return null;
-	}
-
-	//Retorna a APE para editar passando os parametros para a tela e deleta do Array
-	public APE procurarParaEditarAPE (String numPedido){
-		APE apeParaEditar = null;
-		APE apeParaRemover = null;
-		for(APE ape : apes)
-			if(ape.getNumPedido().equals(numPedido)){
-				apeParaEditar = ape;
-				apeParaRemover = ape;
-			}
-		apes.remove(apeParaRemover);		
-		return apeParaEditar;	
-	}
-	
-	public Relatorio procurarParaEditarRelatorio(int id){
-		Relatorio relatorioParaEditar = null;
-		Relatorio relatorioParaRemover = null;
-		for(Relatorio relatorio: relatorios)
-			if(relatorio.getId()==id){
-				relatorioParaEditar = relatorio;
-				relatorioParaRemover = relatorio;
-			}
-		relatorios.remove(relatorioParaRemover);
-		return relatorioParaEditar;		
-	}
-	
-	public Contato procurarParaEditarContato(int id){
-		Contato contatoParaEditar = null;
-		Contato contatoParaRemover = null;
-		for(Contato contato : contatos)
-			if(contato.getId()==id){
-				contatoParaEditar=contato;
-				contatoParaRemover=contato;
-			}
-		contatos.remove(contatoParaRemover);		
-		return contatoParaEditar;
 	}
 
 	
