@@ -47,8 +47,8 @@ public class Relatorio {
 	
 	@Override
 	public String toString() {
-		return id + "," + cliente + "," + solicitante + "," + descricao + "," + entreguePara + "," + dataDeEmissao + 
-				"," + qtdVias;
+		return id + ";" + cliente + ";" + solicitante + ";" + descricao + ";" + entreguePara + ";" + dataDeEmissao + 
+				";" + qtdVias;
 	}
 	
 	

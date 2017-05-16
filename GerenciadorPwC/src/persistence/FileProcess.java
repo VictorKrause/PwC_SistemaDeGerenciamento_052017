@@ -11,6 +11,7 @@ import business.*;
 public class FileProcess {
 
 	public void writeAPE(APE ape) throws IOException{
+		
 		FileWriter writer = new FileWriter("APEs.txt",true);
 		String line = ape.toString();
 		writer.write(line);
@@ -24,13 +25,14 @@ public class FileProcess {
 
 		ArrayList<APE> apesAntigas = new ArrayList<APE>();
 		// Leitura do arquivo
-		Scanner reader = new Scanner(new File("APEs.txt"));
+		File file = new File("APEs.txt");
+		Scanner reader = new Scanner(file);
 		// Variaveis iniciais
 		String line;
 
 		while(reader.hasNext()){
 			line = reader.nextLine();
-			String[] lineSplitada = line.split(",");
+			String[] lineSplitada = line.split(";");
 			apesAntigas.add(new APE(lineSplitada[0], lineSplitada[1], lineSplitada[2], 
 					lineSplitada[3], lineSplitada[4], lineSplitada[5], lineSplitada[6], lineSplitada[7]));
 		}
@@ -48,12 +50,13 @@ public class FileProcess {
 	
 	public ArrayList<Relatorio> loadRelatorio() throws IOException{
 		ArrayList<Relatorio> relatoriosAntigos = new ArrayList<Relatorio>();
-		Scanner reader = new Scanner(new File("Relatorios.txt"));
+		File file = new File("Relatorios.txt");
+		Scanner reader = new Scanner(file);
 		String line;
 		
 		while(reader.hasNext()){
 			line = reader.nextLine();
-			String [] lineSplitada = line.split(",");
+			String [] lineSplitada = line.split(";");
 			relatoriosAntigos.add(new Relatorio(Integer.parseInt(lineSplitada[0]), lineSplitada[1], lineSplitada[2], 
 					lineSplitada[3], lineSplitada[4], lineSplitada[5], lineSplitada[6]));
 		}
@@ -62,7 +65,8 @@ public class FileProcess {
 	}
 
 	public void writeContato(Contato contato) throws IOException{
-		FileWriter writer = new FileWriter("Contatos.txt");
+		File file = new File("Contatos.txt");
+		FileWriter writer = new FileWriter(file);
 		String line = contato.toString();
 		writer.write(line);
 		writer.write("\n");
@@ -72,12 +76,13 @@ public class FileProcess {
 	
 	public ArrayList<Contato> loadContatos() throws IOException{
 		ArrayList<Contato> contatosAntigos = new ArrayList<Contato>();
-		Scanner reader = new Scanner(new File("Contatos.txt"));
+		File file = new File("Contatos.txt");
+		Scanner reader = new Scanner(file);
 		String line;
 		
 		while(reader.hasNext()){
 			line = reader.nextLine();
-			String [] lineSplitada = line.split(",");
+			String [] lineSplitada = line.split(";");
 			contatosAntigos.add(new Contato(Integer.parseInt(lineSplitada[0]), lineSplitada[1], lineSplitada[2], 
 					lineSplitada[3], lineSplitada[4], lineSplitada[5]));
 		}

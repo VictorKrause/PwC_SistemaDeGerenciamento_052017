@@ -35,8 +35,8 @@ public class DataManager {
 		contatos.add(contato);
 		fp.writeContato(contato);
 	}
-	//TODO: Dar clear no TXT e gravar novamente
-	public boolean removerAPE(String numPedido){
+
+	public boolean removerAPE(String numPedido) throws IOException{
 		APE apeParaRemover = null;
 		boolean removido = false;
 		for(APE ape : apes)
@@ -45,10 +45,14 @@ public class DataManager {
 				removido = true;
 			}
 		apes.remove(apeParaRemover);
+		fp.clearTxt("APEs.txt");
+		for(APE ape : apes)
+			fp.writeAPE(ape);
+		
 		return removido;
 	}
-	//TODO: Dar clear no TXT e gravar novamente 
-	public boolean removerRelatorio(int id){
+
+	public boolean removerRelatorio(int id) throws IOException{
 		Relatorio relatorioParaRemover = null;
 		boolean removido = false;
 		for(Relatorio relatorio : relatorios)
@@ -57,10 +61,14 @@ public class DataManager {
 				removido = true;
 			}
 		relatorios.remove(relatorioParaRemover);
+		fp.clearTxt("Relatorios.txt");
+		for(Relatorio relatorio : relatorios)
+			fp.writeRelatorio(relatorio);
+		
 		return removido;
 	}
-	//TODO: Dar clear no TXT e gravar novamente
-	public boolean removerContato(int id){
+	
+	public boolean removerContato(int id) throws IOException{
 		Contato contatoParaRemover = null;
 		boolean removido = false;
 		for(Contato contato : contatos)
@@ -69,6 +77,10 @@ public class DataManager {
 				contatoParaRemover = contato;
 			}
 		contatos.remove(contatoParaRemover);
+		fp.clearTxt("Contatos.txt");
+		for(Contato contato : contatos)
+			fp.writeContato(contato);
+		
 		return removido;
 	}
 
@@ -78,7 +90,7 @@ public class DataManager {
 		ArrayList<APE> apesQueAtendemOParametro = new ArrayList<>();
 		for(APE ape : apes){
 			String fornecedorToLower = ape.getFornecedor().toLowerCase();
-			if(fornecedorToLower.equals(parametroToLower)
+			if(fornecedorToLower.contains(parametroToLower)
 					|| ape.getFornecedor().equals(parametro)
 					|| ape.getNumBatch().equals(parametro)
 					|| ape.getNumPedido().equals(parametro))
@@ -116,5 +128,29 @@ public class DataManager {
 		return null;
 	}
 
+	
+	public ArrayList<APE> getApes() {
+		return apes;
+	}
+
+
+	public ArrayList<Relatorio> getRelatorios() {
+		return relatorios;
+	}
+
+
+	public ArrayList<Contato> getContatos() {
+		return contatos;
+	}
+
+
+	public void load() throws IOException{
+		apes.clear();
+		relatorios.clear();
+		contatos.clear();
+		apes = fp.loadAPE();
+		relatorios = fp.loadRelatorio();
+		contatos = fp.loadContatos();
+		}
 	
 }

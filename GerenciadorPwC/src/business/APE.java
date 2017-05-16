@@ -50,8 +50,8 @@ public class APE {
 
 	@Override
 	public String toString() {
-		return dataDeEnvio + "," + dataDeVencimento + "," + descricao + "," + meioDePagamento + "," + valor + ","
-				+ numPedido + "," + numBatch + "," + fornecedor;
+		return dataDeEnvio + ";" + dataDeVencimento + ";" + descricao + ";" + meioDePagamento + ";" + valor + ";"
+				+ numPedido + ";" + numBatch + ";" + fornecedor;
 	}
 	
 	
