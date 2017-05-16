@@ -24,20 +24,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class APEs extends JFrame {
+public class Relatorios extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tabelaAPEs;
+	private JTable tabelaRelatorios;
 	private DataManager data;
-	private ArrayList<APE> apes;
+	private ArrayList<Relatorio> relatorios;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public APEs(DataManager data) {
+	public Relatorios(DataManager data) {
 		this.data = data;
-		setTitle("APE's Enviadas");
+		setTitle("Relatorios emitidos");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 882, 491);
 		contentPane = new JPanel();
@@ -50,7 +50,7 @@ public class APEs extends JFrame {
 		btnAdicionar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				AdicionarAPE JFrame = new AdicionarAPE(data);
+				AdicionarRelatorio JFrame = new AdicionarRelatorio(data);
 				JFrame.setVisible(true);
 			}
 		});
@@ -76,7 +76,7 @@ public class APEs extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {		
 
-				DefaultTableModel model = (DefaultTableModel) tabelaAPEs.getModel();
+				DefaultTableModel model = (DefaultTableModel) tabelaRelatorios.getModel();
 				model.setRowCount(0);
 
 				addRowToTable();
@@ -86,7 +86,7 @@ public class APEs extends JFrame {
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditarAPE janela = new EditarAPE(data);
+				EditarRelatorio janela = new EditarRelatorio(data);
 				janela.setVisible(true);
 			}
 		});
@@ -127,17 +127,21 @@ public class APEs extends JFrame {
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)))
 		);
 
-		tabelaAPEs = new JTable();
-		tabelaAPEs.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-						"Fornecedor", "Descri\u00E7\u00E3o", "Valor (R$)", "Data Envio", "Data de Venc", "N\u00BA Pedido", "N\u00BA Batch", "Formato"
-				}
-				));
-		tabelaAPEs.getColumnModel().getColumn(0).setPreferredWidth(121);
-		tabelaAPEs.getColumnModel().getColumn(1).setPreferredWidth(149);
-		scrollPane.setViewportView(tabelaAPEs);
+		tabelaRelatorios = new JTable();
+		tabelaRelatorios.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID", "Cliente", "Descri\u00E7\u00E3o", "Data Emiss\u00E3o", "Solicitante", "Entregue para:", "Vias"
+			}
+		));
+		tabelaRelatorios.getColumnModel().getColumn(0).setPreferredWidth(29);
+		tabelaRelatorios.getColumnModel().getColumn(1).setPreferredWidth(129);
+		tabelaRelatorios.getColumnModel().getColumn(2).setPreferredWidth(131);
+		tabelaRelatorios.getColumnModel().getColumn(4).setPreferredWidth(110);
+		tabelaRelatorios.getColumnModel().getColumn(5).setPreferredWidth(110);
+		tabelaRelatorios.getColumnModel().getColumn(6).setPreferredWidth(38);
+		scrollPane.setViewportView(tabelaRelatorios);
 		contentPane.setLayout(gl_contentPane);
 
 		
@@ -151,18 +155,17 @@ public class APEs extends JFrame {
 			e.printStackTrace();
 
 		}
-		apes = data.getApes();
-		DefaultTableModel model = (DefaultTableModel) tabelaAPEs.getModel();
-		Object rowData[] = new Object[8];
-		for(APE ape : apes){
-			rowData[0] = ape.getFornecedor();
-			rowData[1] = ape.getDescricao();
-			rowData[2] = ape.getValor();
-			rowData[3] = ape.getDataDeEnvio();
-			rowData[4] = ape.getDataDeVencimento();
-			rowData[5] = ape.getNumPedido();
-			rowData[6] = ape.getNumBatch();
-			rowData[7] = ape.getMeioDePagamento();
+		relatorios = data.getRelatorios();
+		DefaultTableModel model = (DefaultTableModel) tabelaRelatorios.getModel();
+		Object rowData[] = new Object[7];
+		for(Relatorio relatorio : relatorios){
+			rowData[0]=relatorio.getId();
+			rowData[1]=relatorio.getCliente();
+			rowData[2]=relatorio.getDescricao();
+			rowData[3]=relatorio.getDataDeEmissao();
+			rowData[4]=relatorio.getSolicitante();
+			rowData[5]=relatorio.getEntreguePara();
+			rowData[6]=relatorio.getQtdVias();
 			model.addRow(rowData);
 		}
 	}

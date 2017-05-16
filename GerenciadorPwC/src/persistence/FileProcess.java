@@ -40,7 +40,7 @@ public class FileProcess {
 	}
 	
 	public void writeRelatorio(Relatorio relatorio) throws IOException{
-		FileWriter writer = new FileWriter("Relatorios.txt");
+		FileWriter writer = new FileWriter("Relatorios.txt", true);
 		String line = relatorio.toString();
 		writer.write(line);
 		writer.write("\n");
@@ -66,7 +66,7 @@ public class FileProcess {
 
 	public void writeContato(Contato contato) throws IOException{
 		File file = new File("Contatos.txt");
-		FileWriter writer = new FileWriter(file);
+		FileWriter writer = new FileWriter(file, true);
 		String line = contato.toString();
 		writer.write(line);
 		writer.write("\n");

@@ -16,6 +16,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StartMainClass extends JFrame {
 
@@ -62,6 +64,12 @@ public class StartMainClass extends JFrame {
 		});
 		
 		JButton btnRelatorios = new JButton("Relatorios");
+		btnRelatorios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Relatorios janela = new Relatorios(data);
+				janela.setVisible(true);
+			}
+		});
 		
 		JButton btnContatos = new JButton("Contatos");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

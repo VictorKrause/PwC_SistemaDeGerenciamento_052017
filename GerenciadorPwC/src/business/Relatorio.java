@@ -45,6 +45,10 @@ public class Relatorio {
 		return dataDeEmissao;
 	}
 	
+	public String getQtdVias(){
+		return qtdVias;
+	}
+	
 	@Override
 	public String toString() {
 		return id + ";" + cliente + ";" + solicitante + ";" + descricao + ";" + entreguePara + ";" + dataDeEmissao + 

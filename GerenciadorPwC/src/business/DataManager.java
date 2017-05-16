@@ -48,7 +48,7 @@ public class DataManager {
 		fp.clearTxt("APEs.txt");
 		for(APE ape : apes)
 			fp.writeAPE(ape);
-		
+
 		return removido;
 	}
 
@@ -64,10 +64,10 @@ public class DataManager {
 		fp.clearTxt("Relatorios.txt");
 		for(Relatorio relatorio : relatorios)
 			fp.writeRelatorio(relatorio);
-		
+
 		return removido;
 	}
-	
+
 	public boolean removerContato(int id) throws IOException{
 		Contato contatoParaRemover = null;
 		boolean removido = false;
@@ -80,7 +80,7 @@ public class DataManager {
 		fp.clearTxt("Contatos.txt");
 		for(Contato contato : contatos)
 			fp.writeContato(contato);
-		
+
 		return removido;
 	}
 
@@ -116,7 +116,7 @@ public class DataManager {
 		}
 		return relatoriosQueAtendemOParametro;
 	}
-	
+
 	public Contato buscarContato (String nome){
 		for(Contato contato : contatos){
 			String nomeContatoAtual = contato.getNome().toLowerCase();
@@ -124,11 +124,11 @@ public class DataManager {
 			if(nomeContatoAtual.equals(nomeProcuradoToLowerCase))
 				return contato;
 		}
-	
+
 		return null;
 	}
 
-	
+
 	public ArrayList<APE> getApes() {
 		return apes;
 	}
@@ -143,6 +143,58 @@ public class DataManager {
 		return contatos;
 	}
 
+	public APE buscarParaEditarAPE(String numPedido){
+		APE apeParaEditar = null;	
+		for(APE ape : apes)
+			if(ape.getNumPedido().equals(numPedido))
+				apeParaEditar=ape;
+
+		try {
+			removerAPE(numPedido);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return apeParaEditar;
+	}
+	
+	public Relatorio buscarParaEditarRelatorio(int id){
+		Relatorio relatorioParaEditar = null;
+		for(Relatorio relatorio : relatorios)
+			if(relatorio.getId()==id)
+				relatorioParaEditar=relatorio;
+		
+		try{removerRelatorio(id);}
+		catch(IOException e){e.printStackTrace();}
+		
+		return relatorioParaEditar;
+		
+	}
+
+	//1 para relatorio
+	//2 para contato
+	public int setId(int i) throws IOException{
+		load();
+		int id = 0;
+		if(i<1||i>2)
+			return 0;	
+		else
+
+			if (i==1){
+				if(relatorios.size()>0)// IF para primeiro caso
+					for(Relatorio relat : relatorios)
+						id=relat.getId();
+				else return 1;		
+			}		
+			else{
+				if(contatos.size()>0) // IF para primeiro caso
+					for(Contato cont : contatos)
+						id=cont.getId();
+				else return 1;
+			}
+
+		return id+1;
+	}
+
 
 	public void load() throws IOException{
 		apes.clear();
@@ -151,6 +203,6 @@ public class DataManager {
 		apes = fp.loadAPE();
 		relatorios = fp.loadRelatorio();
 		contatos = fp.loadContatos();
-		}
-	
+	}
+
 }
