@@ -38,7 +38,7 @@ public class Relatorios extends JFrame {
 	public Relatorios(DataManager data) {
 		this.data = data;
 		setTitle("Relatorios emitidos");
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 882, 491);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +58,7 @@ public class Relatorios extends JFrame {
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RemoverAPE JFrame = new RemoverAPE(data);
+				RemoverRelatorio JFrame = new RemoverRelatorio(data);
 				JFrame.setVisible(true);
 			}
 		});
@@ -66,7 +66,7 @@ public class Relatorios extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BuscarAPE janela = new BuscarAPE(data);
+				BuscarRelatorio janela = new BuscarRelatorio(data);
 				janela.setVisible(true);
 			}
 		});
@@ -75,11 +75,7 @@ public class Relatorios extends JFrame {
 		btnAtualizar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {		
-
-				DefaultTableModel model = (DefaultTableModel) tabelaRelatorios.getModel();
-				model.setRowCount(0);
-
-				addRowToTable();
+				attTabela();
 			}
 		});
 		
@@ -128,6 +124,7 @@ public class Relatorios extends JFrame {
 		);
 
 		tabelaRelatorios = new JTable();
+		tabelaRelatorios.setEnabled(false);
 		tabelaRelatorios.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -147,7 +144,14 @@ public class Relatorios extends JFrame {
 		
 	}
 	
-	public void addRowToTable(){
+	public void attTabela(){
+		DefaultTableModel model = (DefaultTableModel) tabelaRelatorios.getModel();
+		model.setRowCount(0);
+
+		addRowToTable();
+	}
+	
+	private void addRowToTable(){
 		try {
 			data.load();
 		} catch (IOException e) {

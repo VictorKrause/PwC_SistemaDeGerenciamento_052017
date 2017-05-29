@@ -128,6 +128,7 @@ public class APEs extends JFrame {
 		);
 
 		tabelaAPEs = new JTable();
+		tabelaAPEs.setEnabled(false);
 		tabelaAPEs.setModel(new DefaultTableModel(
 				new Object[][] {
 				},

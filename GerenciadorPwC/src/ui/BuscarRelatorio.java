@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import business.APE;
 import business.DataManager;
+import business.Relatorio;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,18 +25,18 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class BuscarAPE extends JFrame {
+public class BuscarRelatorio extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtFieldParametroDeBusca;
 	private JTable tabelaResultado;
 	private DataManager data;
-	private ArrayList<APE> resultadoBusca;
+	private ArrayList<Relatorio> resultadoBusca;
 
-	public BuscarAPE(DataManager data) {
+	public BuscarRelatorio(DataManager data) {
 		this.data = data;
-		setTitle("Buscar APEs");
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setTitle("Buscar Relatorios");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 379);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,7 +55,7 @@ public class BuscarAPE extends JFrame {
 						e1.printStackTrace();
 					}
 					finally{ JOptionPane.showMessageDialog(null, "Busca Concluida!\n"+resultadoBusca.size()+" resultados encontrados.");
-								txtFieldParametroDeBusca.setText("");}
+					txtFieldParametroDeBusca.setText("");}
 				}
 				else {JOptionPane.showMessageDialog(null, "Parametro invalido");
 				txtFieldParametroDeBusca.setText("");
@@ -63,7 +64,7 @@ public class BuscarAPE extends JFrame {
 		});
 
 		txtFieldParametroDeBusca = new JTextField();
-		txtFieldParametroDeBusca.setToolTipText("Preencha o Numero do Batch, Numero do Pedido ou Nome do Fornecedor");
+		txtFieldParametroDeBusca.setToolTipText("Preencha o nome do cliente ou data de emiss\u00E3o (##/##/####)");
 		txtFieldParametroDeBusca.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -92,16 +93,19 @@ public class BuscarAPE extends JFrame {
 				);
 
 		tabelaResultado = new JTable();
-		tabelaResultado.setEnabled(false);
 		tabelaResultado.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-						"Fornecedor", "Descri\u00E7\u00E3o", "Valor (R$)", "Data Envio", "Data de Venc", "N\u00BA Pedido", "N\u00BA Batch", "Formato"
-				}
-				));
-		tabelaResultado.getColumnModel().getColumn(0).setPreferredWidth(121);
-		tabelaResultado.getColumnModel().getColumn(1).setPreferredWidth(149);
+			new Object[][] {
+			},
+			new String[] {
+				"ID", "Cliente", "Descri\u00E7\u00E3o", "Data Emiss\u00E3o", "Solicitante", "Entregue para:", "Vias"
+			}
+		));
+		tabelaResultado.getColumnModel().getColumn(0).setPreferredWidth(33);
+		tabelaResultado.getColumnModel().getColumn(1).setPreferredWidth(108);
+		tabelaResultado.getColumnModel().getColumn(2).setPreferredWidth(146);
+		tabelaResultado.getColumnModel().getColumn(4).setPreferredWidth(114);
+		tabelaResultado.getColumnModel().getColumn(5).setPreferredWidth(110);
+		tabelaResultado.getColumnModel().getColumn(6).setPreferredWidth(35);
 		scrollPane.setViewportView(tabelaResultado);
 		contentPane.setLayout(gl_contentPane);
 
@@ -109,18 +113,17 @@ public class BuscarAPE extends JFrame {
 
 	public void addRowToTable(String parametro) throws IOException{
 		data.load();
-		resultadoBusca = data.buscarApes(parametro);
+		resultadoBusca = data.buscarRelatorios(parametro);
 		DefaultTableModel model = (DefaultTableModel) tabelaResultado.getModel();
 		Object rowData[] = new Object[8];
-		for(APE ape : resultadoBusca){
-			rowData[0] = ape.getFornecedor();
-			rowData[1] = ape.getDescricao();
-			rowData[2] = ape.getValor();
-			rowData[3] = ape.getDataDeEnvio();
-			rowData[4] = ape.getDataDeVencimento();
-			rowData[5] = ape.getNumPedido();
-			rowData[6] = ape.getNumBatch();
-			rowData[7] = ape.getMeioDePagamento();
+		for(Relatorio relatorio : resultadoBusca){
+			rowData[0]=relatorio.getId();
+			rowData[1]=relatorio.getCliente();
+			rowData[2]=relatorio.getDescricao();
+			rowData[3]=relatorio.getDataDeEmissao();
+			rowData[4]=relatorio.getSolicitante();
+			rowData[5]=relatorio.getEntreguePara();
+			rowData[6]=relatorio.getQtdVias();
 			model.addRow(rowData);
 		}
 	}

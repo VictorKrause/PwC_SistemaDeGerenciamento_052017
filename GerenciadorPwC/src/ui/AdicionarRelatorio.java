@@ -1,4 +1,4 @@
-package ui;
+  package ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -177,6 +177,9 @@ public class AdicionarRelatorio extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public AdicionarRelatorio(DataManager data) {
 		this.data = data;
 		setTitle("Adicionar relatorio");
@@ -233,6 +236,8 @@ public class AdicionarRelatorio extends JFrame {
 							txtFieldDescricao.getText(), txtFieldEntreguePara.getText(), txtFieldDataEmissao.getText(), txtFieldQtdVias.getText()));
 						limparCampos();
 						JOptionPane.showMessageDialog(null, "Relatorio adicionado!");
+						Relatorios janelaAnterior = new Relatorios(data);
+						janelaAnterior.attTabela();
 					}
 					else JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
 					

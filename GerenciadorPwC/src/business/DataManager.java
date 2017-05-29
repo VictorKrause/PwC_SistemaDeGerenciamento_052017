@@ -91,7 +91,6 @@ public class DataManager {
 		for(APE ape : apes){
 			String fornecedorToLower = ape.getFornecedor().toLowerCase();
 			if(fornecedorToLower.contains(parametroToLower)
-					|| ape.getFornecedor().equals(parametro)
 					|| ape.getNumBatch().equals(parametro)
 					|| ape.getNumPedido().equals(parametro))
 			{
@@ -108,7 +107,7 @@ public class DataManager {
 		ArrayList <Relatorio> relatoriosQueAtendemOParametro = new ArrayList<Relatorio>();
 		for(Relatorio relatorio : relatorios){
 			String nomeClienteToLower = relatorio.getCliente().toLowerCase();
-			if(nomeClienteToLower.equals(parametroToLower)
+			if(nomeClienteToLower.contains(parametroToLower)
 					|| relatorio.getDataDeEmissao().equals(parametro))
 			{
 				relatoriosQueAtendemOParametro.add(relatorio);
